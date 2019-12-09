@@ -1,0 +1,135 @@
+#############################################################
+# 1. check that selected LDEV ID has not been taken already #
+#############################################################
+# *** COMMON ***
+
+{% for ldev in data.ldevs %}
+  raidcom get ldev -ldev_id {{ ldev.ldev_id }} -fx
+{% endfor %}
+
+##########################################################
+# 2. create LDEV_ID on POOL_ID with capacity CAPACITY_GB #
+##########################################################
+# *** COMMON ***
+
+{% for ldev in data.ldevs %}
+  raidcom add ldev -ldev_id 0x{{ ldev.ldev_id }} -pool {{ data.pool.pool_id }} -capacity {{ ldev.ldev_gb }}g
+{% endfor %}
+
+#########################
+# 3. Assign LDEV a name #
+#########################
+# *** COMMON ***
+
+{% for ldev in data.ldevs %}
+  raidcom modify ldev -ldev_id 0x{{ ldev.ldev_id }} -ldev_name {{ data.ldevs_pfix }}_{{ ldev.ldev_id}}
+{% endfor %}
+
+#########################
+# 4. Unmap virtual LDEV #
+#########################
+# *** COMMON ***
+
+{% for ldev in data.ldevs %}
+  raidcom unmap resource -ldev_id 00:{{ ldev.ldev_id[:2] }}:{{ ldev.ldev_id[2:] }} -virtual_ldev_id 00:{{ ldev.ldev_id[:2] }}:{{ ldev.ldev_id[2:] }}
+{% endfor %}
+
+###########################
+# 5. Move resource to GAD #
+###########################
+# *** COMMON ***
+
+  raidcom get resource
+
+{% for ldev in data.ldevs %}
+  raidcom add resource -resource_name {{ data.gad.gad_res_name}} -ldev_id 0x{{ ldev.ldev_id }}
+{% endfor %}
+
+#######################
+# 6. Add virtual LDEV #
+#######################
+# *** COMMON ***
+
+{% for ldev in data.ldevs %}
+  raidcom map resource -ldev_id 0x{{ ldev.ldev_id }} -virtual_ldev_id 0x{{ ldev.ldev_id }}
+{% endfor %}
+
+######################################################
+# 7. Verify that devices have been created correctly #
+######################################################
+# *** COMMON ***
+
+{% for ldev in data.ldevs %}
+  raidcom get ldev -ldev_id 0x{{ ldev.ldev_id }} -fx
+{% endfor %}
+
+#######################
+# 8. Enable ALUA mode #
+#######################
+# *** COMMON ***
+
+{% for ldev in data.ldevs %}
+  raidcom modify ldev -ldev_id 0x{{ ldev.ldev_id }} -alua enable
+{% endfor %}
+
+
+            ===============================================
+            Now, do the following:
+
+                9.  Assign Hostgroups if required
+                10. Perform lun port mapping from GUI
+                11. Stop both HORCM instances
+                12. Backup then Edit HORCM config files
+            ===============================================
+
+            Append the following line(s) to the config files:
+
+
+# *** HORCM INSTANCE: {{ data.ser_pri }}  ***
+
+{% for ldev in data.ldevs %}
+{{ data.gad.gad_grp }}          {{ data.ldevs_pfix }}_{{ ldev.ldev_id }}      {{ data.ser_pri }}   0x{{ ldev.ldev_id }}           h0
+{% endfor %}
+
+# *** HORCM INSTANCE: {{ data.ser_sec }}  ***
+
+{% for ldev in data.ldevs %}
+{{ data.gad.gad_grp }}          {{ data.ldevs_pfix }}_{{ ldev.ldev_id }}      {{ data.ser_sec }}   0x{{ ldev.ldev_id }}           h0
+{% endfor %}
+
+###############################
+# 13. Restart HORCM Instances #
+###############################
+
+##################################
+# 14. Display existing GAD pairs #
+##################################
+# *** FRA ONLY ***
+
+  pairdisplay -g {{data.gad.gad_grp}} -fcxe
+
+########################
+# 15. create GAD pairs #
+########################
+# *** FRA ONLY ***
+
+{% for ldev in data.ldevs %}
+  paircreate -g {{ data.gad.gad_grp }} -d {{ data.ldevs_pfix }}_{{ ldev.ldev_id }} -vl -f never -jq 0
+{% endfor %}
+
+######################################
+# 16. Display new GAD pairs with naa #
+######################################
+# *** COMMON ***
+
+  pairdisplay -g {{data.gad.gad_grp}} -fcxew
+
+
+##################################
+# 17. END: STOP HORCM INSTANCES! #
+##################################
+
+
+{% extends "templos/email_templo.j2" %}
+
+

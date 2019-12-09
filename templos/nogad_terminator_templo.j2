@@ -1,0 +1,27 @@
+#######################
+#  1. CHECK COMMANDS  #
+#######################
+
+{% for ldev in data.ldevs %}
+	raidcom get ldev -ldev_id 00:{{ ldev.ldev_id[:2] }}:{{ ldev.ldev_id[2:] }} -fx
+{% endfor %}
+
+############
+# 2. UNMAP #
+############
+
+# *** FRA or RUS ***
+
+{% for ldev in data.ldevs %}
+	raidcom unmap resource -ldev_id 00:{{ ldev.ldev_id[:2] }}:{{ ldev.ldev_id[2:] }} -virtual_ldev_id 00:{{ ldev.ldev_id[:2] }}:{{ ldev.ldev_id[2:] }}
+{% endfor %}
+
+# *** FRA or RUS ***
+
+{% for ldev in data.ldevs %}
+	raidcom add resource -resource_name meta_resource -ldev_id 0x{{ ldev.ldev_id }}
+	raidcom map resource -ldev_id 0x{{ ldev.ldev_id }} -virtual_ldev_id 0x{{ ldev.ldev_id }}
+	raidcom delete ldev -ldev_id 00:{{ ldev.ldev_id[:2] }}:{{ ldev.ldev_id[2:] }} -fx
+	raidcom get ldev -ldev_id 00:{{ ldev.ldev_id[:2] }}:{{ ldev.ldev_id[2:] }} -fx
+
+{% endfor %}

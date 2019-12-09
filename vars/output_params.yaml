@@ -1,0 +1,17 @@
+gad:
+  gad_grp: BIZ_CLD
+  gad_res_name: UCP_GAD_VSM
+  is_gad: true
+ldevs:
+- ldev_gb: '10'
+  ldev_id: '0123'
+- ldev_gb: '20'
+  ldev_id: '0124'
+- ldev_gb: '30'
+  ldev_id: '0125'
+ldevs_pfix: BIZ_CLD
+plural: 's'
+pool:
+  pool_id: '0'
+ser_pri: '443531'
+ser_sec: '414052'

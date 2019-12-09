@@ -1,0 +1,71 @@
+#######################
+#  1. CHECK COMMANDS  #
+#######################
+
+{% for ldev in data.ldevs %}
+	pairdisplay -g {{ data.gad.gad_grp }} -fcxe -d {{ data.ldevs_pfix }}_{{ ldev.ldev_id }}
+	raidcom get ldev -ldev_id 00:{{ ldev.ldev_id[:2] }}:{{ ldev.ldev_id[2:] }} -fx
+{% endfor %}
+
+###################
+# 2. SUSPEND PAIR #
+###################
+# *** FRA or RUS ***
+
+{% for ldev in data.ldevs %}
+	pairsplit -g {{ data.gad.gad_grp }} -d {{ data.ldevs_pfix }}_{{ ldev.ldev_id }}
+{% endfor %}
+
+#####################
+# 3. BREAK THE PAIR #
+#####################
+# *** FRA or RUS ***
+
+{% for ldev in data.ldevs %}
+	pairsplit -g {{ data.gad.gad_grp }} -d {{ data.ldevs_pfix }}_{{ ldev.ldev_id }} -S
+{% endfor %}
+
+###########################
+# 4. STOP HORCM INSTANCES #
+###########################
+# *** COMMON ***
+
+###########################################
+# 5. REMOVE THE PAIR FROM GAD CONFIG FILE #
+###########################################
+# *** COMMON ***
+
+##########################################
+# 6. COPY THE FILES TO HITRACK SERVER 02 #
+##########################################
+# *** COMMON ***
+
+##################################
+# 7. UNMAP THE LUNS FROM THE GUI #
+##################################
+# *** COMMON ***
+
+############
+# 8. UNMAP #
+############
+# *** FRA ONLY ***
+
+{% for ldev in data.ldevs %}
+	raidcom unmap resource -ldev_id 00:{{ ldev.ldev_id[:2] }}:{{ ldev.ldev_id[2:] }} -virtual_ldev_id 00:{{ ldev.ldev_id[:2] }}:{{ ldev.ldev_id[2:] }}
+{% endfor %}
+
+# *** RUS ONLY ***
+
+{% for ldev in data.ldevs %}
+	raidcom unmap resource -ldev_id 00:{{ ldev.ldev_id[:2] }}:{{ ldev.ldev_id[2:] }} -virtual_ldev_id reserve
+{% endfor %}
+
+# *** RUS & FRA ***
+
+{% for ldev in data.ldevs %}
+	raidcom add resource -resource_name meta_resource -ldev_id 0x{{ ldev.ldev_id }}
+	raidcom map resource -ldev_id 0x{{ ldev.ldev_id }} -virtual_ldev_id 0x{{ ldev.ldev_id }}
+	raidcom delete ldev -ldev_id 00:{{ ldev.ldev_id[:2] }}:{{ ldev.ldev_id[2:] }} -fx
+	raidcom get ldev -ldev_id 00:{{ ldev.ldev_id[:2] }}:{{ ldev.ldev_id[2:] }} -fx
+
+{% endfor %}
