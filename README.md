@@ -1,6 +1,6 @@
 # RAIDCOM COMMANDER
 ---
-### small tool to assist with the creation of Hitachi raicomm commands for creating and deleting LDEVs.
+### small tool to assist with the creation of Hitachi raicomm commands for LUN provisioning.
 
 you can use the tool to create LDEV both replicated (gad) or non replicated.
 
