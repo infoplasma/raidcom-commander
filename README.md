@@ -15,7 +15,7 @@ you will have to provide the following data:
 You can use a form by from where you can select the option from presets, by launching:
 
 ```
-$ python raidcommaner.py
+$ python raidcommander.py
 ```
 
 Or you can directly modify the config/config.yaml file, and the launch 'writer --create'
