@@ -10,7 +10,7 @@ Hello,
 Below you can find the identifier{{ data.plural }} for the newly created device{{ data.plural }}:
 
 {% for ldev in data.ldevs %}
-	LUN ID: ____ - LDEV ID: {{ ldev.ldev_id }}  -  SIZE:       {{ ldev.ldev_gb }} GB
+	LUN ID: ____  -  LDEV ID: {{ ldev.ldev_id }}  -  SIZE:   {{ "%4s" | format(ldev.ldev_gb) }} GB
 {% endfor %}
 
 Please let us know in case of any issues or questions with that.

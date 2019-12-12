@@ -6,7 +6,7 @@
 # *** COMMON ***
 
 {% for ldev in data.ldevs %}
-  raidcom get ldev -ldev_id {{ ldev.ldev_id }} -fx
+  raidcom get ldev -ldev_id 0x{{ ldev.ldev_id }} -fx
 {% endfor %}
 
 ##########################################################
