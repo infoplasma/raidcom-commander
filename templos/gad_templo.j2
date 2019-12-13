@@ -1,5 +1,11 @@
 -- template scope: provision of new replicated (GAD) LDEVS
+-- to hosts
+#_________________DE10ESXFRA150-156
+#_________________DE11ESXRUS150-156
 
+#port mappings _________________7b, 8b
+
+#lun ids _________________160,161,162
 #############################################################
 # 1. check that selected LDEV ID has not been taken already #
 #############################################################
@@ -33,7 +39,7 @@
 # *** COMMON ***
 
 {% for ldev in data.ldevs %}
-  raidcom unmap resource -ldev_id 00:{{ ldev.ldev_id[:2] }}:{{ ldev.ldev_id[2:] }} -virtual_ldev_id 00:{{ ldev.ldev_id[:2] }}:{{ ldev.ldev_id[2:] }}
+  raidcom unmap resource -ldev_id 0x{{ ldev.ldev_id }} -virtual_ldev_id 0x{{ ldev.ldev_id }}
 {% endfor %}
 
 ###########################
@@ -50,10 +56,16 @@
 #######################
 # 6. Add virtual LDEV #
 #######################
-# *** COMMON ***
+# *** FRA ***
 
 {% for ldev in data.ldevs %}
   raidcom map resource -ldev_id 0x{{ ldev.ldev_id }} -virtual_ldev_id 0x{{ ldev.ldev_id }}
+{% endfor %}
+
+# *** RUS ***
+
+{% for ldev in data.ldevs %}
+  raidcom map resource -ldev_id 0x{{ ldev.ldev_id }} -virtual_ldev_id reserve
 {% endfor %}
 
 ######################################################
