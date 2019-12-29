@@ -1,0 +1,7 @@
+devices:
+- {qty: '1', size_gb: '100'}
+- {qty: '2', size_gb: '120'}
+hostname: ESX0001
+prefix: BIZ_CLD_CLUSTER
+replica: true
+tier: '0: Tier 0 - SSD'
