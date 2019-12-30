@@ -1,18 +1,18 @@
 import imaplib
 
 
-EMAIL = "lorenzoamante@gmail.com"
+EMAIL = "lorenzoamante@infoplasma.com"
 PWD = input("PWD:")
 
-IMAP_SERVER = "imap.gmai.com"
+IMAP_SERVER = "pop.securemail.pro"
 IMAP_PORT = 993
 
 def read_mail():
 
-    mail = imaplib.IMAP4_SSL(IMAP_SERVER)
+    mail = imaplib.IMAP4_SSL(IMAP_SERVER, IMAP_PORT)
     mail.login(EMAIL, PWD)
 
-    mail.select('Inbox')
+    mail.select('Posta in arrivo')
 
     type, data = mail.search(None, 'ALL')
     mail_ids = data[0]
