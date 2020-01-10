@@ -22,6 +22,7 @@ class myEntryForm(nps.FormBaseNewWithMenus):
     def ldev_creator(self):
         self.parentApp.switchForm("LDEV PROVISIONER")
 
+
     def ldev_terminator(self):
         self.parentApp.switchForm("LDEV TERMINATOR")
 

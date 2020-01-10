@@ -1,17 +1,7 @@
-gad: {gad_grp: BIZ_CLD, gad_res_name: UCP_GAD_VSM, is_gad: true}
-ldevs:
-- {ldev_gb: '100', ldev_id: 000F}
-- {ldev_gb: '1024', ldev_id: '0010'}
-- {ldev_gb: '1024', ldev_id: '0011'}
-- {ldev_gb: '1024', ldev_id: '0012'}
-- {ldev_gb: '1024', ldev_id: '0013'}
-- {ldev_gb: '4000', ldev_id: '0014'}
-- {ldev_gb: '4000', ldev_id: '0015'}
-- {ldev_gb: '4000', ldev_id: '0016'}
-- {ldev_gb: '4000', ldev_id: '0017'}
-- {ldev_gb: '4000', ldev_id: 0018}
-ldevs_pfix: BIZ_CLD
-plural: s
-pool: {pool_id: '0'}
-ser_pri: '443531'
-ser_sec: '414052'
+devices:
+- {qty: '4', size_gb: '1200'}
+- {qty: '2', size_gb: '150'}
+hostname: ESX001
+prefix: RDM_CLUSTER
+replica: false
+tier: '2: Tier 2 - Dynamic Tiering, FC + NL-SAS'

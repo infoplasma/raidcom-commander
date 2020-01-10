@@ -8,11 +8,11 @@ def get_email():
     messages = outlook.Folders["lamante@dxc.com"].Folders["Inbox"].Items
 
     found = False
-    msg = messages.GetFirst()
+    msg = messages.GetLast()
 
-    print("SCANNING INBOX...")
+    print("SCANNING INBOX FOR THE LAST STORCOM REQUEST.")
 
-    while msg:
+    while not found:
         if "[STORCOM]" in str(msg):
             print(f"Subject: {msg.Subject}")
             print(f"SentOn: {msg.SentOn}")
@@ -24,5 +24,5 @@ def get_email():
 
             print(attachment)
 
-        msg = messages.GetNext()
+        msg = messages.GetPrevious()
 
