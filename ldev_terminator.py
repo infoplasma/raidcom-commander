@@ -7,10 +7,10 @@ from yaml import safe_load
 # TODO: GET NAA IDENTIFIER AND ADD TO EMAIL MESSAGE
 
 
-class ldev_terminatorForm(nps.ActionForm):
+class LdevTerminatorForm(nps.ActionForm):
 
     def create(self):
-        with open('config/config.yaml') as yaml_data:
+        with open('config/defaults.yaml') as yaml_data:
             cfg = safe_load(yaml_data)
         self.LDEVS = self.add(nps.TitleText, name="Ldev ID's:", value=cfg['LDEVS'])
         self.GAD_RES_NAME = self.add(nps.TitleFixedText, name="GAD_RES_NAME:", value=cfg['GAD_RES_NAME'])
@@ -65,7 +65,7 @@ class App(nps.NPSAppManaged):
         nps.setTheme(nps.Themes.ElegantTheme)
 
         # nps.setTheme(nps.Themes.BlackOnWhiteTheme)
-        self.addForm("MAIN", ldev_terminatorForm, name="LDEV TERMINATOR")
+        self.addForm("MAIN", LdevTerminatorForm, name="LDEV TERMINATOR")
 
 
 if __name__ == "__main__":

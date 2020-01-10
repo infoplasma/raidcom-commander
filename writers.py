@@ -2,7 +2,7 @@ from jinja2 import Environment, FileSystemLoader
 from yaml import safe_dump, safe_load
 
 
-with open('config/config.yaml') as yaml_data:
+with open('config/defaults.yaml') as yaml_data:
     cfg = safe_load(yaml_data)
 
 

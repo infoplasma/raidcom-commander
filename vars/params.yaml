@@ -1,0 +1,8 @@
+devices:
+- {qty: '1', size_gb: '100'}
+- {qty: '4', size_gb: '1024'}
+- {qty: '5', size_gb: '4000'}
+hostname: PIZZACLUPE001,PIZZACLUPE002
+prefix: GAD_MGMT_DATASTORE
+replica: true
+tier: '3: Tier 3 - HIGH CAPACITY, NL-SAS [8+]ms RT'

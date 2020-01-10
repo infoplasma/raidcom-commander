@@ -1,4 +1,5 @@
 from yaml import safe_load, safe_dump
+from email_getter import get_email
 
 
 def to_dev_list(list_gb=[0], first_ldev_id = "0x0000"):
@@ -12,15 +13,30 @@ def to_dev_list(list_gb=[0], first_ldev_id = "0x0000"):
 
     return list(zip(dev_id_list, list_gb))
 
+
+def update_in_params_from_ssm_out_params():
+    import os, shutil
+    src_path = r"../../storage_service_manager/"
+    dst_path = r"./vars/"
+    file_name = r"out_params.yaml"
+    if os.path.exists(os.path.join(src_path, file_name)) and os.path.exists(os.path.join(dst_path, file_name)):
+        os.rename()
+        shutil.move(os.path.join(src_path, file_name), os.path.join(dst_path, file_name))
+
+
 def read_config(yaml_file):
     with open(yaml_file, "r") as f:
         return safe_load(f)
 
+
 def update_config():
-    with open("config/config.yaml", "r") as handle:
+
+    get_email()
+
+    with open("config/defaults.yaml", "r") as handle:
         cfg = safe_load(handle)
 
-    data = read_config("./vars/in_params.yaml")
+    data = read_config("./vars/params.yaml")
 
     values = []
 
@@ -35,7 +51,7 @@ def update_config():
     cfg['LDEVS'] = ','.join(map(str, a))
     cfg['LDEVS_GB'] = ','.join(map(str, b))
 
-    with open("config/config.yaml", "w", encoding='utf-8') as handle:
+    with open("config/defaults.yaml", "w", encoding='utf-8') as handle:
         safe_dump(cfg, handle)
 
 

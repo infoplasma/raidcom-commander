@@ -3,8 +3,8 @@
 print("*** INFO: LOADING PROGRAM, PLEASE BE PATIENT. ***")
  
 import npyscreen as nps
-from ldev_creator import ldev_creatorForm
-from ldev_terminator import ldev_terminatorForm
+from ldev_creator import LdevCreatorForm
+from ldev_terminator import LdevTerminatorForm
 
 
 class myEntryForm(nps.FormBaseNewWithMenus):
@@ -32,7 +32,7 @@ class myEntryForm(nps.FormBaseNewWithMenus):
 
 class configuratorForm(nps.ActionForm):
     def activate(self):
-        nps.notify_wait("to change configuration settings you must manually edit config/config.yaml", title='WARNING')
+        nps.notify_wait("to change configuration settings you must manually edit config/defaults.yaml", title='WARNING')
         self.parentApp.setNextForm("MAIN")
     
     def create(self):
@@ -46,8 +46,8 @@ class MyApplication(nps.NPSAppManaged):
     def onStart(self):
         nps.setTheme(nps.Themes.ElegantTheme)
         self.addForm('MAIN', myEntryForm, name='RAIDCOMMANDER')
-        self.addForm('LDEV PROVISIONER', ldev_creatorForm, name="LDEV PROVISIONER")
-        self.addForm('LDEV TERMINATOR', ldev_terminatorForm, name="LDEV TERMINATOR")
+        self.addForm('LDEV PROVISIONER', LdevCreatorForm, name="LDEV PROVISIONER")
+        self.addForm('LDEV TERMINATOR', LdevTerminatorForm, name="LDEV TERMINATOR")
         self.addForm("CONFIGURATOR PARAMETRI", configuratorForm, name="CONFIGURATOR PARAMETRI")
         
 

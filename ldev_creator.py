@@ -9,10 +9,10 @@ from yaml import safe_load
 
 
 
-class ldev_creatorForm(nps.ActionForm):
+class LdevCreatorForm(nps.ActionForm):
 
     def create(self):
-        with open('config/config.yaml') as yaml_data:
+        with open('config/defaults.yaml') as yaml_data:
             cfg = safe_load(yaml_data)
         self.LDEVS = self.add(nps.TitleText, name="Ldev ID's:", value=cfg['LDEVS'])
         self.LDEVS_GB = self.add(nps.TitleText, name="CAPACITY, GB:", value=cfg['LDEVS_GB'])
@@ -76,7 +76,7 @@ class ldev_creatorForm(nps.ActionForm):
 class App(nps.NPSAppManaged):
     def onStart(self):
         nps.setTheme(nps.Themes.ElegantTheme)
-        self.addForm("MAIN", ldev_creatorForm, name="RAIDCOM COMMANDER")
+        self.addForm("MAIN", LdevCreatorForm, name="RAIDCOM COMMANDER")
 
 
 if __name__ == "__main__":
