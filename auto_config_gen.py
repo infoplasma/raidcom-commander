@@ -45,7 +45,7 @@ def update_config():
             values.append(i['size_gb'])
 
 
-    first_id = input('FIRST ID: (0x0000)')
+    first_id = input('FIRST AVAILABLE LDEV ID? (0x0000): ')
     a, b = (zip(*to_dev_list(values, first_id)))
 
     cfg['LDEVS'] = ','.join(map(str, a))

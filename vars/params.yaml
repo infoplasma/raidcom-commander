@@ -1,7 +1,7 @@
 devices:
-- {qty: '10', size_gb: '120'}
-- {qty: '15', size_gb: '140'}
-hostname: host_uno
-prefix: BIZ_CLD_CLUSTER
+- {qty: '1', size_gb: '120'}
+- {qty: '2', size_gb: '400'}
+hostname: CLUPE001,CLUPE002
+prefix: RDM_CLUSTER
 replica: true
-tier: '0: Tier 0 - SSD'
+tier: '4: Tier 4 - BACKUP'

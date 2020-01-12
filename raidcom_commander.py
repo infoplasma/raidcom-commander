@@ -22,7 +22,6 @@ class myEntryForm(nps.FormBaseNewWithMenus):
     def ldev_creator(self):
         self.parentApp.switchForm("LDEV PROVISIONER")
 
-
     def ldev_terminator(self):
         self.parentApp.switchForm("LDEV TERMINATOR")
 
@@ -53,5 +52,7 @@ class MyApplication(nps.NPSAppManaged):
         
 
 if __name__ == "__main__":
+    from auto_config_gen import update_config
+    update_config()
     MyApplication().run()
     print('*** INFO: PROGRAM ENDED, GOODBYE. ***')

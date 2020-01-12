@@ -8,25 +8,29 @@ from yaml import safe_load
 # TODO: GET NAA IDENTIFIER AND ADD TO EMAIL MESSAGE
 
 
-
 class LdevCreatorForm(nps.ActionForm):
 
-    def create(self):
+    @staticmethod
+    def _load_defaults():
         with open('config/defaults.yaml') as yaml_data:
-            cfg = safe_load(yaml_data)
-        self.LDEVS = self.add(nps.TitleText, name="Ldev ID's:", value=cfg['LDEVS'])
-        self.LDEVS_GB = self.add(nps.TitleText, name="CAPACITY, GB:", value=cfg['LDEVS_GB'])
-        self.GAD_RES_NAME = self.add(nps.TitleFixedText, name="GAD_RES_NAME:", value=cfg['GAD_RES_NAME'])
-        self.SER_PRI = self.add(nps.TitleFixedText, name="SER_PRI:", value=cfg['SER_PRI'])
-        self.SER_SEC = self.add(nps.TitleFixedText, name="SER_SEC:", value=cfg['SER_SEC'])
+            return safe_load(yaml_data)
+
+
+    def create(self):
+        self._cfg = self._load_defaults()
+        self.LDEVS = self.add(nps.TitleText, name="Ldev ID's:", value=self._cfg['LDEVS'])
+        self.LDEVS_GB = self.add(nps.TitleText, name="CAPACITY, GB:", value=self._cfg['LDEVS_GB'])
+        self.GAD_RES_NAME = self.add(nps.TitleFixedText, name="GAD_RES_NAME:", value=self._cfg['GAD_RES_NAME'])
+        self.SER_PRI = self.add(nps.TitleFixedText, name="SER_PRI:", value=self._cfg['SER_PRI'])
+        self.SER_SEC = self.add(nps.TitleFixedText, name="SER_SEC:", value=self._cfg['SER_SEC'])
         self.GAD_SEL = self.add(nps.TitleSelectOne, max_height=2, name="REPLICATED:",
                                 values=["YES", "NO"], value=0, scroll_exit=True)
         self.POOL_ID_SEL = self.add(nps.TitleSelectOne, max_height=3, name="POOL ID:",
-                                    values=cfg['POOL_ID'], value=0, scroll_exit=True)
+                                    values=self._cfg['POOL_ID'], value=0, scroll_exit=True)
         self.LDEV_PREFIX_SEL = self.add(nps.TitleSelectOne, max_height=6, name="LDEV_PREFIX:",
-                                        values=cfg['LDEV_PREFIX'], value=0, scroll_exit=True)
+                                        values=self._cfg['LDEV_PREFIX'], value=0, scroll_exit=True)
         self.GAD_DEV_GRP_SEL = self.add(nps.TitleSelectOne, max_height=6, name="GAD GROUP:",
-                                        values=cfg['DEFAULT_GROUPS'], value=0, scroll_exit=True)
+                                        values=self._cfg['DEFAULT_GROUPS'], value=0, scroll_exit=True)
 
     def on_ok(self):
         LDEVS = self.LDEVS.value.upper().split(",")
