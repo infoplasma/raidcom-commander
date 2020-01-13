@@ -14,16 +14,6 @@ def to_dev_list(list_gb=[0], first_ldev_id = "0x0000"):
     return list(zip(dev_id_list, list_gb))
 
 
-def update_in_params_from_ssm_out_params():
-    import os, shutil
-    src_path = r"../../storage_service_manager/"
-    dst_path = r"./vars/"
-    file_name = r"out_params.yaml"
-    if os.path.exists(os.path.join(src_path, file_name)) and os.path.exists(os.path.join(dst_path, file_name)):
-        os.rename()
-        shutil.move(os.path.join(src_path, file_name), os.path.join(dst_path, file_name))
-
-
 def read_config(yaml_file):
     with open(yaml_file, "r") as f:
         return safe_load(f)

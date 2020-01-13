@@ -10,19 +10,20 @@ def get_email():
     found = False
     msg = messages.GetLast()
 
-    print("SCANNING INBOX FOR THE LAST STORCOM REQUEST.")
+    print("*** INFO: SCANNING INBOX FOR THE LAST STORCOM REQUEST.")
 
     while not found:
         if "[STORCOM]" in str(msg):
+
             print(f"Subject: {msg.Subject}")
             print(f"SentOn: {msg.SentOn}")
             found = True
             attachments = msg.Attachments
             attachment = attachments.Item(1)
-            print(os.path.join(os.getcwd(), "vars"))
+            #print(os.path.join(os.getcwd(), "vars"))
             attachment.SaveASFile(os.path.join(os.getcwd(), "vars", str(attachment)))
 
-            print(attachment)
+            #print(attachment)
 
         msg = messages.GetPrevious()
 
