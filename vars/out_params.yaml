@@ -1,15 +1,8 @@
 gad: {gad_grp: BIZ_CLD, gad_res_name: UCP_GAD_VSM, is_gad: true}
 ldevs:
-- {ldev_gb: '2048', ldev_id: 000D}
-- {ldev_gb: '2048', ldev_id: 000E}
-- {ldev_gb: '2048', ldev_id: 000F}
-- {ldev_gb: '2048', ldev_id: '0010'}
-- {ldev_gb: '2048', ldev_id: '0011'}
-- {ldev_gb: '2048', ldev_id: '0012'}
-- {ldev_gb: '2048', ldev_id: '0013'}
-- {ldev_gb: '2048', ldev_id: '0014'}
-- {ldev_gb: '2048', ldev_id: '0015'}
-- {ldev_gb: '2048', ldev_id: '0016'}
+- {ldev_gb: '120', ldev_id: '0001'}
+- {ldev_gb: '400', ldev_id: '0002'}
+- {ldev_gb: '400', ldev_id: '0003'}
 ldevs_pfix: BIZ_CLD
 plural: s
 pool: {pool_id: '0'}
