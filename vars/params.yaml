@@ -1,7 +1,7 @@
 devices:
 - {qty: '1', size_gb: '120'}
 - {qty: '2', size_gb: '400'}
-hostname: CLUPE001,CLUPE002
-prefix: RDM_CLUSTER
+hostname: esx001
+prefix: BIZ_CLD_CLUSTER
 replica: true
-tier: '4: Tier 4 - BACKUP'
+tier: '1: Tier 1 - Dynamic, SSD + FC'
