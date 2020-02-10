@@ -1,7 +1,8 @@
 devices:
+- {qty: '1', size_gb: '1500'}
 - {qty: '1', size_gb: '120'}
-- {qty: '2', size_gb: '400'}
-hostname: esx001
-prefix: BIZ_CLD_CLUSTER
+- {qty: '2', size_gb: '1024'}
+hostname: EXCHANGE001,EXCHANGE002
+prefix: RDM_CLUSTER
 replica: true
-tier: '1: Tier 1 - Dynamic, SSD + FC'
+tier: '4: Tier 4 - BACKUP'

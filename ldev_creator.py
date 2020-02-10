@@ -18,15 +18,16 @@ class LdevCreatorForm(nps.ActionForm):
 
     def create(self):
         self._cfg = self._load_defaults()
-        self.LDEVS = self.add(nps.TitleText, name="Ldev ID's:", value=self._cfg['LDEVS'])
-        self.LDEVS_GB = self.add(nps.TitleText, name="CAPACITY, GB:", value=self._cfg['LDEVS_GB'])
-        self.GAD_RES_NAME = self.add(nps.TitleFixedText, name="GAD_RES_NAME:", value=self._cfg['GAD_RES_NAME'])
-        self.SER_PRI = self.add(nps.TitleFixedText, name="SER_PRI:", value=self._cfg['SER_PRI'])
-        self.SER_SEC = self.add(nps.TitleFixedText, name="SER_SEC:", value=self._cfg['SER_SEC'])
-        self.GAD_SEL = self.add(nps.TitleSelectOne, max_height=2, name="REPLICATED:",
-                                values=["YES", "NO"], value=0, scroll_exit=True)
-        self.POOL_ID_SEL = self.add(nps.TitleSelectOne, max_height=3, name="POOL ID:",
-                                    values=self._cfg['POOL_ID'], value=0, scroll_exit=True)
+
+        self.LDEVS           = self.add(nps.TitleText, name="Ldev ID's:", value=self._cfg['LDEVS'])
+        self.LDEVS_GB        = self.add(nps.TitleText, name="CAPACITY, GB:", value=self._cfg['LDEVS_GB'])
+        self.GAD_RES_NAME    = self.add(nps.TitleFixedText, name="GAD_RES_NAME:", value=self._cfg['GAD_RES_NAME'])
+        self.SER_PRI         = self.add(nps.TitleFixedText, name="SER_PRI:", value=self._cfg['SER_PRI'])
+        self.SER_SEC         = self.add(nps.TitleFixedText, name="SER_SEC:", value=self._cfg['SER_SEC'])
+        self.GAD_SEL         = self.add(nps.TitleSelectOne, max_height=2, name="REPLICATED:",
+                                        values=["YES", "NO"], value=0, scroll_exit=True)
+        self.POOL_ID_SEL     = self.add(nps.TitleSelectOne, max_height=3, name="POOL ID:",
+                                        values=self._cfg['POOL_ID'], value=0, scroll_exit=True)
         self.LDEV_PREFIX_SEL = self.add(nps.TitleSelectOne, max_height=6, name="LDEV_PREFIX:",
                                         values=self._cfg['LDEV_PREFIX'], value=0, scroll_exit=True)
         self.GAD_DEV_GRP_SEL = self.add(nps.TitleSelectOne, max_height=6, name="GAD GROUP:",

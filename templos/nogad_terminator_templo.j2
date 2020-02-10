@@ -1,16 +1,39 @@
 -- template scope: deletion of new non-replicated (no GAD) LDEVS
 -- template status: TEST, must be checked manually before implementation
 
+
+############################
+# 1. START HORCM INSTANCES #
+############################
+# *** FRA or RUS ***
+
+
 #######################
-#  1. CHECK COMMANDS  #
+#  2. CHECK COMMANDS  #
 #######################
 
 {% for ldev in data.ldevs %}
 	raidcom get ldev -ldev_id 0x{{ ldev.ldev_id }} -fx
 {% endfor %}
 
+
+###########################
+# 3. STOP HORCM INSTANCES #
+###########################
+# *** FRA or RUS ***
+
+##################################
+# 4. UNMAP THE LUNS FROM THE GUI #
+##################################
+# *** FRA or RUS ***
+
+############################
+# 5. START HORCM INSTANCES #
+############################
+# *** FRA or RUS ***
+
 ############
-# 2. UNMAP #
+# 6. UNMAP #
 ############
 
 # *** FRA or RUS ***
