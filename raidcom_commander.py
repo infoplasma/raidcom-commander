@@ -53,6 +53,6 @@ class MyApplication(nps.NPSAppManaged):
 
 if __name__ == "__main__":
     from auto_config_gen import update_config
-    update_config()
+    update_config(input('create/terminate? '))
     MyApplication().run()
     print('*** INFO: PROGRAM ENDED, GOODBYE. ***')

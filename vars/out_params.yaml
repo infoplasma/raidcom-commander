@@ -1,13 +1,9 @@
-gad:
-  gad_grp: BIZ_CLD
-  gad_res_name: UCP_GAD_VSM
-  is_gad: true
+gad: {gad_grp: BIZ_CLD, gad_res_name: UCP_GAD_VSM, is_gad: false}
 ldevs:
-- ldev_gb: '1500'
-  ldev_id: FFFF
-ldevs_pfix: BIZ_CLD
-plural: ''
-pool:
-  pool_id: '0'
+- {ldev_gb: '120', ldev_id: 00AB}
+- {ldev_gb: '120', ldev_id: 00FF}
+- {ldev_gb: '1000', ldev_id: 00FE}
+ldevs_prefix: RDM
+plural: s
+pool: {pool_id: '0'}
 ser_pri: '443531'
-ser_sec: '414052'

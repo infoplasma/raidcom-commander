@@ -1,8 +1,10 @@
 devices:
-- {qty: '1', size_gb: '1500'}
-- {qty: '1', size_gb: '120'}
-- {qty: '2', size_gb: '1024'}
-hostname: EXCHANGE001,EXCHANGE002
-prefix: RDM_CLUSTER
-replica: true
-tier: '4: Tier 4 - BACKUP'
+- {qty: '2', size_gb: '120'}
+- {qty: '1', size_gb: '1000'}
+hostname: HOST
+prefix: RDM
+prefix_index: 1
+replica: false
+replica_index: 1
+tier: '1: Tier 1 - IBM_SVC'
+tier_index: 1

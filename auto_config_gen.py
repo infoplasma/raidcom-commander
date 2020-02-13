@@ -19,7 +19,7 @@ def read_config(yaml_file):
         return safe_load(f)
 
 
-def update_config():
+def update_config(mode='create'):
 
     get_email()
 
@@ -30,16 +30,22 @@ def update_config():
 
     values = []
 
-    for i in data['devices']:
-        for j in range(int(i['qty'])):
-            values.append(i['size_gb'])
+    if mode == 'create':
+        for i in data['devices']:
+            for j in range(int(i['qty'])):
+                values.append(i['size_gb'])
+        first_id = input('FIRST AVAILABLE LDEV ID? (0x0000): ')
+        a, b = (zip(*to_dev_list(values, first_id)))
+        cfg['LDEVS'] = ','.join(map(str, a))
+        cfg['GB'] = ','.join(map(str, b))
+    elif mode == 'terminate':
+        print(data['devices'])
+        cfg['LDEVS'] = ','.join([i['lun_id'] for i in data['devices']])
+        cfg['GB'] = ','.join([i['size_gb'] for i in data['devices']])
 
-
-    first_id = input('FIRST AVAILABLE LDEV ID? (0x0000): ')
-    a, b = (zip(*to_dev_list(values, first_id)))
-
-    cfg['LDEVS'] = ','.join(map(str, a))
-    cfg['LDEVS_GB'] = ','.join(map(str, b))
+    cfg['TIER_INDEX'] = data['tier_index']
+    cfg['LDEV_PREFIX_INDEX'] = data['prefix_index']
+    cfg['REPLICA_INDEX'] = data['replica_index']
 
     with open("config/defaults.yaml", "w", encoding='utf-8') as handle:
         safe_dump(cfg, handle)

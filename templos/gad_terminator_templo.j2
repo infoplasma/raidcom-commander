@@ -1,12 +1,13 @@
 -- template scope: deletion of replicated (GAD) LDEVS
 -- template status: TEST, must be checked manually before implementation
+-- PRIMARY FRAME: {{ data.ser_pri }}
 
 #######################
 #  1. CHECK COMMANDS  #
 #######################
 
 {% for ldev in data.ldevs %}
-	pairdisplay -g {{ data.gad.gad_grp }} -fcxe -d {{ data.ldevs_pfix }}_{{ ldev.ldev_id }}
+	pairdisplay -g {{ data.gad.gad_grp }} -fcxe -d 0x{{ ldev.ldev_id }}
 	raidcom get ldev -ldev_id 0x{{ ldev.ldev_id }} -fx
 {% endfor %}
 
@@ -16,7 +17,7 @@
 # *** FRA or RUS ***
 
 {% for ldev in data.ldevs %}
-	pairsplit -g {{ data.gad.gad_grp }} -d {{ data.ldevs_pfix }}_{{ ldev.ldev_id }}
+	pairsplit -g {{ data.gad.gad_grp }} -d 0x{{ ldev.ldev_id }}
 {% endfor %}
 
 #####################
@@ -25,7 +26,7 @@
 # *** FRA or RUS ***
 
 {% for ldev in data.ldevs %}
-	pairsplit -g {{ data.gad.gad_grp }} -d {{ data.ldevs_pfix }}_{{ ldev.ldev_id }} -S
+	pairsplit -g {{ data.gad.gad_grp }} -d 0x{{ ldev.ldev_id }} -S
 {% endfor %}
 
 ###########################
