@@ -1,10 +1,12 @@
+action_type: terminate
 devices:
-- {qty: '2', size_gb: '120'}
-- {qty: '1', size_gb: '1000'}
-hostname: HOST
+- {lun_id: 00FF, size_gb: '1'}
+- {lun_id: '0100', size_gb: '1'}
+- {lun_id: '0101', size_gb: '1'}
+hostname: CANCIOLLAMI
 prefix: RDM
 prefix_index: 1
-replica: false
-replica_index: 1
-tier: '1: Tier 1 - IBM_SVC'
-tier_index: 1
+replica: true
+replica_index: 0
+tier: '2: Tier 2 - GENERIC_NL_SAS'
+tier_index: 2
